@@ -1,0 +1,28 @@
+.key{
+    border-radius: 9px;
+    border: 1px solid black;
+    background-color:rgba(0,0,0, .4);
+    color: rgb(220, 224, 224);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .4s all;
+    font-size: 22px;
+    padding: 10px 15px;
+    cursor: pointer;
+    span{
+        font-size: 16px;
+    }
+    &__active{
+        background-color: rgb(75, 219, 183);
+    }
+    &__space{
+        width: 270px;
+        height: 60px;
+    }
+    &__control{
+        padding: 10px 25px;
+        white-space: nowrap;
+    }
+}
+
