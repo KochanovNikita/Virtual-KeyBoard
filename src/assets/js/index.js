@@ -173,6 +173,9 @@ document.addEventListener("mousedown", (event) => {
             TEXTAREA.setRangeText("", getCaretPos(), getCaretPos() + 1, "select")
         }
         break
+    case "Enter":
+        TEXTAREA.setRangeText("\n", getCaretPos(), getCaretPos(), "select")
+        break
     default:
         break
     }
