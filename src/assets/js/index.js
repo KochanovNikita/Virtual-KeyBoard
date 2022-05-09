@@ -43,7 +43,7 @@ const upperCaseKey = () => {
     BOARD__KEYS[3].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(36))
 }
 
-document.addEventListener("keydown", (event) => {
+function KeyDown (event) {
     const currentKey = document.querySelector(".key[data-key='" + event.code + "'")
     if (currentKey !== null) {
         currentKey.classList.add("key__active")
@@ -76,11 +76,13 @@ document.addEventListener("keydown", (event) => {
             break
         case "ShiftLeft":
         case "ShiftRight":
-            event.preventDefault()
-            toUpperCase = !toUpperCase
-            upperCaseKey()
-            BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
-            isShift = true
+            if (!isShift) {
+                event.preventDefault()
+                toUpperCase = !toUpperCase
+                upperCaseKey()
+                BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
+                isShift = true
+            }
             break
         default:
             event.preventDefault()
@@ -102,6 +104,10 @@ document.addEventListener("keydown", (event) => {
         }
         event.stopPropagation()
     }
+}
+
+document.addEventListener("keydown", (event) => {
+    KeyDown(event)
 })
 
 document.addEventListener("keyup", (event) => {
@@ -123,9 +129,7 @@ document.addEventListener("keyup", (event) => {
 KEYS.forEach(key => {
     key.addEventListener("mousedown", () => {
         key.classList.add("key__active")
-        if (currentLanguage.includes(key.innerText) || NUM.includes(key.innerText)) {
-            TEXTAREA.value += key.innerText
-        }
+        TEXTAREA.value += key.innerText
     })
 })
 
