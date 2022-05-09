@@ -27,7 +27,7 @@ BODY.innerHTML = `
         </div>
         <p>Клавиатура создана в операционной системе Windows</p>
         <p>Комбинация для переключения языка: левыe ctrl + alt</p>
-        <p>Клавиши для изменения регистра: Caps Lock(нажать), левый Shift(зажать)</p>
+        <p>Клавиши для изменения регистра: Caps Lock(нажать), Shift(зажать)</p>
     </div>
 `
 createBoard(currentLanguage, toUpperCase, NUM)
@@ -42,12 +42,12 @@ const upperCaseKey = () => {
     BOARD__KEYS[3].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(36))
 }
 
-const shiftclick = () => {
+const shiftClick = () => {
     upperCaseKey()
     BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
 }
 
-function KeyDown (event) {
+document.addEventListener("keydown", (event) => {
     const currentKey = document.querySelector(".key[data-key='" + event.code + "'")
     if (currentKey !== null) {
         currentKey.classList.add("key__active")
@@ -83,7 +83,7 @@ function KeyDown (event) {
             if (!isShift) {
                 event.preventDefault()
                 toUpperCase = !toUpperCase
-                shiftclick()
+                shiftClick()
                 isShift = true
             }
             break
@@ -107,10 +107,6 @@ function KeyDown (event) {
         }
         event.stopPropagation()
     }
-}
-
-document.addEventListener("keydown", (event) => {
-    KeyDown(event)
 })
 
 document.addEventListener("keyup", (event) => {
@@ -120,13 +116,27 @@ document.addEventListener("keyup", (event) => {
         currentKey.classList.remove("key__active")
         if ((event.code === "ShiftLeft" || event.code === "ShiftRight") && isShift) {
             toUpperCase = !toUpperCase
-            shiftclick()
+            shiftClick()
             isShift = false
         }
         isAlt = false
         isCtrl = false
     }
 })
+
+function getCaretPos () {
+    TEXTAREA.focus()
+    if (TEXTAREA.selectionStart) return TEXTAREA.selectionStart
+    else if (document.selection) {
+        const sel = document.selection.createRange()
+        const clone = sel.duplicate()
+        sel.collapse(true)
+        clone.moveToElementText(TEXTAREA)
+        clone.setEndPoint("EndToEnd", sel)
+        return clone.text.length
+    }
+    return 0
+}
 
 document.addEventListener("mousedown", (event) => {
     if (event.target.classList.contains("key")) {
@@ -149,8 +159,18 @@ document.addEventListener("mousedown", (event) => {
         if (!isShift) {
             event.preventDefault()
             toUpperCase = !toUpperCase
-            shiftclick()
+            shiftClick()
             isShift = true
+        }
+        break
+    case "Backspace":
+        if (TEXTAREA.value.length > 0) {
+            TEXTAREA.setRangeText("", getCaretPos() - 1, getCaretPos(), "select")
+        }
+        break
+    case "Delete":
+        if (getCaretPos() !== TEXTAREA.value.length) {
+            TEXTAREA.setRangeText("", getCaretPos(), getCaretPos() + 1, "select")
         }
         break
     default:
@@ -161,7 +181,7 @@ document.addEventListener("mousedown", (event) => {
 document.addEventListener("mouseup", (event) => {
     if ((event.target.dataset.key === "ShiftLeft" || event.target.dataset.key === "ShiftRight") && isShift) {
         toUpperCase = !toUpperCase
-        shiftclick()
+        shiftClick()
         isShift = false
     }
 })
