@@ -1,0 +1,129 @@
+/*!********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/assets/sass/root.scss ***!
+  \********************************************************************************************************************/
+* {
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #c8ced3;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; }
+
+.root {
+  height: 100vh;
+  margin: 0 auto;
+  padding-top: 1rem;
+  background-color: rgba(0, 0, 0, 0.9); }
+
+h1 {
+  text-align: center; }
+
+textarea {
+  width: 900px;
+  display: block;
+  margin: 2rem auto;
+  height: 20%;
+  font-size: 20px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.4); }
+
+.board {
+  width: 900px;
+  margin: 0 auto; }
+  .board__letters {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap; }
+  .board__line {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5px;
+    margin-bottom: 5px; }
+  .board__keys {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+
+p {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 1.4rem; }
+
+/*!*******************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/assets/sass/key.scss ***!
+  \*******************************************************************************************************************/
+.key {
+  border-radius: 9px;
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #dce0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .4s all;
+  font-size: 22px;
+  padding: 10px 15px;
+  cursor: pointer; }
+  .key span {
+    font-size: 16px; }
+  .key__active {
+    background-color: #4bdbb7; }
+  .key__space {
+    width: 270px;
+    height: 60px; }
+  .key__control {
+    padding: 10px 25px;
+    white-space: nowrap; }
+  .key:hover {
+    background-color: rgba(125, 224, 194, 0.5); }
+  .key:active {
+    background-color: #4bdbb7; }
+
+/*!***************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/assets/css/font.css ***!
+  \***************************************************************************/
+@font-face {
+  font-family: 'icomoon';
+  src:  url(../../assets/e88ff1a018e732ace783.eot);
+  src:  url(../../assets/e88ff1a018e732ace783.eot) format('embedded-opentype'),
+    url(../../assets/1ff858bd0f4aa8963dc4.ttf) format('truetype'),
+    url(../../assets/a02517775f26f68e5ebd.woff) format('woff'),
+    url(../../assets/b37f5ac443e762daf026.svg) format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak-as: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-up:before {
+  content: "\ea32";
+}
+.icon-arrow-right:before {
+  content: "\ea34";
+}
+.icon-arrow-down:before {
+  content: "\ea36";
+}
+.icon-arrow-left:before {
+  content: "\ea38";
+}
+
+
+/*# sourceMappingURL=main.58930a7a2d5d29463e1d.css.map*/
