@@ -13,7 +13,7 @@ let toUpperCase = false
 let currentLanguage
 
 if (!localStorage.getItem("language")) {
-    currentLanguage = true
+    currentLanguage = "en"
 } else {
     currentLanguage = localStorage.getItem("language")
 }
@@ -32,7 +32,6 @@ BODY.innerHTML = `
 `
 createBoard(currentLanguage, toUpperCase, NUM)
 const TEXTAREA = document.querySelector("textarea")
-const KEYS = document.querySelectorAll(".key")
 const BOARD__KEYS = document.querySelectorAll(".board__keys")
 const BACK_QOUTE = document.querySelector("#backqoute")
 
@@ -41,6 +40,11 @@ const upperCaseKey = () => {
     BOARD__KEYS[1].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(13, 25))
     BOARD__KEYS[2].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(25, 36))
     BOARD__KEYS[3].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(36))
+}
+
+const shiftclick = () => {
+    upperCaseKey()
+    BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
 }
 
 function KeyDown (event) {
@@ -79,8 +83,7 @@ function KeyDown (event) {
             if (!isShift) {
                 event.preventDefault()
                 toUpperCase = !toUpperCase
-                upperCaseKey()
-                BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
+                shiftclick()
                 isShift = true
             }
             break
@@ -98,7 +101,7 @@ function KeyDown (event) {
         }
 
         if (isAlt && isCtrl) {
-            currentLanguage = !currentLanguage
+            currentLanguage === "en" ? currentLanguage = "ru" : currentLanguage = "en"
             localStorage.setItem("language", currentLanguage)
             upperCaseKey()
         }
@@ -117,8 +120,7 @@ document.addEventListener("keyup", (event) => {
         currentKey.classList.remove("key__active")
         if ((event.code === "ShiftLeft" || event.code === "ShiftRight") && isShift) {
             toUpperCase = !toUpperCase
-            upperCaseKey()
-            BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
+            shiftclick()
             isShift = false
         }
         isAlt = false
@@ -126,15 +128,40 @@ document.addEventListener("keyup", (event) => {
     }
 })
 
-KEYS.forEach(key => {
-    key.addEventListener("mousedown", () => {
-        key.classList.add("key__active")
-        TEXTAREA.value += key.innerText
-    })
+document.addEventListener("mousedown", (event) => {
+    if (event.target.classList.contains("key")) {
+        const f = keysArray.find(({ code }) => code === event.target.dataset.key)
+        if (f || event.target.dataset.key.includes("Arrow")) { TEXTAREA.value += event.target.innerText }
+    }
+    switch (event.target.dataset.key) {
+    case "Tab" :
+        TEXTAREA.value += "    "
+        break
+    case "CapsLock":
+        toUpperCase = !toUpperCase
+        upperCaseKey()
+        break
+    case "Space":
+        TEXTAREA.value += "  "
+        break
+    case "ShiftLeft":
+    case "ShiftRight":
+        if (!isShift) {
+            event.preventDefault()
+            toUpperCase = !toUpperCase
+            shiftclick()
+            isShift = true
+        }
+        break
+    default:
+        break
+    }
 })
 
-KEYS.forEach(key => {
-    key.addEventListener("mouseup", () => {
-        key.classList.remove("key__active")
-    })
+document.addEventListener("mouseup", (event) => {
+    if ((event.target.dataset.key === "ShiftLeft" || event.target.dataset.key === "ShiftRight") && isShift) {
+        toUpperCase = !toUpperCase
+        shiftclick()
+        isShift = false
+    }
 })

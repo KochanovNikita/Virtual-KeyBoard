@@ -5,13 +5,13 @@ export const addKeys = (language, caseStyle, currentKeyLine) => {
     currentKeyLine.forEach(({ code, ruUpper, enUpper, ru, en }) => {
         let value
         if (caseStyle) {
-            if (language) {
+            if (language === "ru") {
                 value = ruUpper
             } else {
                 value = enUpper
             }
         } else {
-            if (language) {
+            if (language === "ru") {
                 value = ru
             } else {
                 value = en

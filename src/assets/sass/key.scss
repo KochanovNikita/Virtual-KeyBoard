@@ -24,5 +24,11 @@
         padding: 10px 25px;
         white-space: nowrap;
     }
+    &:hover{
+        background-color: rgba(125, 224, 194, 0.5);
+    }
+    &:active{
+        background-color: rgb(75, 219, 183);
+    }
 }
 
