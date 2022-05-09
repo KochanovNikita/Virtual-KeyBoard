@@ -75,6 +75,7 @@ document.addEventListener("keydown", (event) => {
             isAlt = true
             break
         case "ShiftLeft":
+        case "ShiftRight":
             event.preventDefault()
             toUpperCase = !toUpperCase
             upperCaseKey()
@@ -108,7 +109,7 @@ document.addEventListener("keyup", (event) => {
     const currentKey = document.querySelector(".key[data-key='" + event.code + "'")
     if (currentKey !== null) {
         currentKey.classList.remove("key__active")
-        if (event.code === "ShiftLeft" && isShift) {
+        if ((event.code === "ShiftLeft" || event.code === "ShiftRight") && isShift) {
             toUpperCase = !toUpperCase
             upperCaseKey()
             BOARD__KEYS[0].innerHTML = addKeys(currentLanguage, toUpperCase, keysArray.slice(1, 13))
