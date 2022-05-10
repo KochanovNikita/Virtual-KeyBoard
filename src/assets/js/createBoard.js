@@ -1,5 +1,4 @@
 import addKeys from './addKeys';
-import '../css/font.css';
 import keysArray from './keys';
 
 const createBoard = (currentLanguage, toUpperCase) => {
