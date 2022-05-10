@@ -1,10 +1,10 @@
-import { addKeys } from "./addKeys"
-import "../css/font.css"
-import { keysArray } from "./keys"
+import addKeys from './addKeys';
+import '../css/font.css';
+import keysArray from './keys';
 
-export const createBoard = (currentLanguage, toUpperCase) => {
-    const board = document.querySelector(".board")
-    board.innerHTML = `
+const createBoard = (currentLanguage, toUpperCase) => {
+  const board = document.querySelector('.board');
+  board.innerHTML = `
     <div class="board__line">
         <div id="backqoute">
             ${addKeys(currentLanguage, toUpperCase, keysArray.slice(0, 1))} 
@@ -84,5 +84,6 @@ export const createBoard = (currentLanguage, toUpperCase) => {
             </button>
         </div>
     </div>
-    `
-}
+    `;
+};
+export default createBoard;
